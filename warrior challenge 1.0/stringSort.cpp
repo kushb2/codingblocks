@@ -3,6 +3,12 @@
 #include <bits/stdc++.h>
 using namespace std;
 
+
+bool comp1(string a, string b){
+    return a < b;
+}
+
+
 bool comp(string a, string b){
     // higher length or lexographical 
     int n = a.length(); int m = b.length();
@@ -33,7 +39,7 @@ int main() {
     }
 
     // sort the list of string
-    sort(lst.begin(), lst.end(),comp);
+    sort(lst.begin(), lst.end(),comp1);
     for(auto i : lst) cout<<i<<endl;
 
     return 0;

@@ -3,7 +3,7 @@
 #include <bits/stdc++.h>
 using namespace std;
 typedef long long ll;
-typedef std::vector<ll> vec;
+typedef std::vector<pair<int,int>> vec;
 
 vec findFactor(int n) {
     vec res;
@@ -14,12 +14,16 @@ vec findFactor(int n) {
     // if we can get a all factor at sqrt(n) then no either 1 or a prime
     */
     for (int i = 2; i <= sqrt(n); i++) {
+        int val = 1;
         while (n % i == 0) {
-            res.push_back(i);
+            val *=i;
             n = n / i;
         }
+        if(val != 1){
+            res.push_back({i,val});
+        }
     }
-    if (n != 0) res.push_back(n);
+    if (n != 0) res.push_back({n,n});
     return res;
 }
 
@@ -38,19 +42,21 @@ int main() {
     {
     vec v1 =  findFactor(a);
     vec v2 = findFactor(b);
-    for (auto i : v1) cout << i << " ";
-    cout << endl;
-    for (auto i : v2) cout << i << " ";
-    cout << endl;
-    int i, j; i = j = 0;
-    while (i < v1.size() && j < v2.size()) {
-        if (v1[i] == v2[j]) res *= v1[i];
-        else res  = res * v1[i] * v2[j];
+   
+    int i,j;  i= j = 0;
+    while(i < v1.size() && j < v2.size()){
+        if(v1[i].first != v2[i].first){
+            res = res * v1[i].second * v2[i].second;
+        }
+        else res = res*max(v1[i].second, v2[i].second);
         i++; j++;
     }
 
-    while (i < v1.size()) res *= v1[i++];
-    while (j < v2.size()) res *= v2[j++];
+    while(i < v1.size()) res *= v1[i++].second;
+
+
+    while(j < v2.size()) res *= v2[j++].second;
+
     cout << res;
     }
     return 0;

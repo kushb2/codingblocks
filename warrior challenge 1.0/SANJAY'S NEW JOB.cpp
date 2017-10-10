@@ -16,7 +16,7 @@ bool comp(pp a, pp b) {
     string s2 = b.first;
     while (i < n && j < m) {
         if (s1[i] > s2[j]) return false;
-        if (s1[i] < s2[j]) return true;
+       else if (s1[i] < s2[j]) return true;
         i++; j++;
     }
     return n > m;
